@@ -18,7 +18,6 @@ class CreateRoleUserTable extends Migration
             $table->integer('role_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
         });
     }
 
