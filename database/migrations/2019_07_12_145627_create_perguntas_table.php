@@ -21,7 +21,7 @@ class CreatePerguntasTable extends Migration
             $table->integer('ordem')->nullable();
             $table->string('room_type');
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            
         });
 
        Schema::table('perguntas', function($table) {

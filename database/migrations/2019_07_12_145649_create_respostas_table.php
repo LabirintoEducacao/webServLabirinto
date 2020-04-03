@@ -20,7 +20,7 @@ class CreateRespostasTable extends Migration
             $table->string('resposta');
             $table->boolean('corret');
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            
         });
         Schema::table('respostas', function($table) {
            $table->foreign('sala_id')->references('id')->on('salas')->onDelete('cascade');

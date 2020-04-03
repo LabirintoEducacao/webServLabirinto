@@ -18,7 +18,7 @@ class CreatePergRefTable extends Migration
             $table->bigInteger('perg_id')->unsigned();
             $table->bigInteger('ref_id')->unsigned()->nullable();
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            
         });
         
         Schema::table('perg_ref', function($table) {

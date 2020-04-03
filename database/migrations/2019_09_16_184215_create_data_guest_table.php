@@ -27,7 +27,7 @@ class CreateDataGuestTable extends Migration
               $table->integer('answers_read_count')->nullable();
               $table->Timestamp('async_timestamp')->nullable();
               $table->timestamp('created_at')->useCurrent();
-              $table->timestamp('updated_at')->useCurrent();
+              
         });
     }
 
