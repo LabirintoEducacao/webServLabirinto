@@ -88,7 +88,7 @@ Route::prefix('/usuario')->group(function () {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// ROTAS SOMENTE DO ADMINISTRADOR 
+// ROTAS SOMENTE DO ADMINISTRADOR
 
 Route::get('/admin', function () {
 
@@ -148,7 +148,7 @@ Route::prefix('/admin')->group(function () {
     Route::get('/estatistica/{id}', 'SalaController@estatistica');
     //Route::get('/estatistica/', function(){
     //    return view('grafico');
-    //});   
+    //});
 
     //Route::post('/estatistica/{id}', 'SalaController@index');
     Route::post('/sala', 'SalaController@store');
@@ -240,6 +240,13 @@ Route::prefix('/virtual')->group(function () {
 
     Route::get('/', 'SalaController@entrar');
     Route::get('/', 'SalaController@entrar_guest');
+});
+
+Route::prefix('/play')->group(function () {
+
+    // Salas Publicas não precisa logar
+
+    Route::get('/', 'SalaController@play');
 });
 
 // Buscar Publico não precisa logar

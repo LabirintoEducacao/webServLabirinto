@@ -196,7 +196,7 @@ class SalaController extends Controller
 
   //    public function edit_sala(Request $request)
   //    {
-  //        
+  //
   //           $request->validate([
   //
   //                  'nome' => 'required|max:20'
@@ -206,11 +206,11 @@ class SalaController extends Controller
   //            $time = $request->input('time');
   //
   //           if($time == ""){
-  //               
+  //
   //            $time = 0;
   //
   //           }
-  //        
+  //
   //            $sala = Sala::find($request->sala_id);
   //            $sala->name = $request->input('nome');
   //            $sala->duracao = $time;
@@ -383,6 +383,11 @@ class SalaController extends Controller
     return view('virtual')->with(['data' => $salas, 'sala_user' => $sala_user, 'salapu' => $salapu2, 'salapr' => $salapr2]);
   }
 
+    public function play()
+    {
+        return view('play');
+    }
+
 
   public function entrar_guest()
   {
@@ -550,7 +555,7 @@ class SalaController extends Controller
 
 
 
-          //---------------------------Termino Porcentagem--------------------------------//   
+          //---------------------------Termino Porcentagem--------------------------------//
 
 
 
@@ -701,7 +706,7 @@ class SalaController extends Controller
 
 
 
-            //---------------------------Termino Contagem --------------------------------// 
+            //---------------------------Termino Contagem --------------------------------//
 
 
 

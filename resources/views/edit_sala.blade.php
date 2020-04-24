@@ -143,7 +143,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 col-sm-12 col-md-12 col-lg-4">
-                                
+
                                                 <div class="row" style="height:50px;">
                                                     <div class="col-4 col-sm-4 col-md-3 col-lg-5" style="height:100%;">
                                                         <label for="tamanho" style="margin-right: 3.5px; padding-top:10%;">Altura do Labirinto:</label>
@@ -161,7 +161,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 col-sm-12 col-md-12 col-lg-4">
-                                           
+
                                                 <div class="row" style="height:50px;">
                                                     <div class="col-4 col-sm-4 col-md-3 col-lg-5" style="height:100%;">
                                                         <label for="largura" style="margin-right: 3.5px; padding-top:10%;">Largura do Labirinto:</label>
@@ -198,7 +198,7 @@
                                             </div>
 
                                             <div class="col-12 col-sm-10 col-md-4">
-                               
+
                                                 <div class="row" style="height:70px;">
                                                     <div class="col-5" style="height:100%;">
                                                         <label for="tipo_opcao" style="margin-right: 3.5px; padding-top:15%;">Tipo da Resposta:</label>
@@ -317,14 +317,18 @@
                                     {{$x}}
                                 </td>
                                 <td>
-                                    @if($sala->tematica=="urban")
-                                    Urbano
+                                    @if($sala->tematica=="icy_maze")
+                                        Gelo
+                                    @elseif($sala->tematica=="cave")
+                                        Caverna
+                                    @elseif($sala->tematica=="desert")
+                                        Deserto
+                                    @elseif($sala->tematica=="forest")
+                                        Floresta
                                     @elseif($sala->tematica=="mansion")
-                                    Casa/Mansão
-                                    @elseif($sala->tematica=="icy_maze")
-                                    Gelo
-                                    @else
-                                    Selva
+                                        Casa/Mansão
+                                    @elseif($sala->tematica=="urban")
+                                        Urbano
                                     @endif
                                 </td>
                                 <td>
@@ -408,7 +412,7 @@
                     @if($path->id==$pp->path_id)
 
                     @if($path->disp == 1)
-                    <!-- 
+                    <!--
                                                  <button type="button" class="btn btn-outline-info fa fa-pencil tamanhobutton" data-toggle="modal" data-target="#addPerg" data-whatever="{{$item->id}}"title="Editar pergunta"></button>&emsp;&emsp;
                                                   <a href="{{ url('admin/deletar-pergunta/'.$item->id) }}" class="btn btn-outline-danger fa fa-trash tamanhobutton"></a>
                      -->
@@ -610,9 +614,11 @@
                             <label for="theme">Tema:&emsp;</label>
                             <select id="theme" name="theme" class="form-control selectpicker" data-style="btn btn-primary">
                                 <option value="icy_maze">Gelo</option>
-                                <option disabled value="urban">Urbano</option>
-                                <option disabled value="forest">Selva</option>
-                                <option disabled value="mansion">Casa/Mansão</option>
+                                <option value="cave">Caverna</option>
+                                <option value="desert">Deserto</option>
+                                <option value="forest">Floresta</option>
+                                <option value="mansion">Casa/Mansão</option>
+                                <option value="urban">Urbano</option>
                             </select>
 
                         </div>
@@ -858,12 +864,16 @@
                 <br>
                 <h5 class="modal-title" style="color: black; font-size: 13px"><b>Gelo</b></h5>
                 <p style="font-size: 12px; text-align: justify;">O labirinto é formado por uma geleira, com quadro para os textos de pergunta e resposta e suporte para os itens todos lapidados em blocos de gelo.</p>
-                <h5 class="modal-title" style="color: black; font-size: 13px"><b>Urbano</b></h5>
-                <p style="font-size: 12px; text-align: justify;">Ainda não funciona.</p>
-                <h5 class="modal-title" style="color: black; font-size: 13px"><b>Selva</b></h5>
-                <p style="font-size: 12px; text-align: justify;">Ainda não funciona.</p>
+                <h5 class="modal-title" style="color: black; font-size: 13px"><b>Caverna</b></h5>
+                <p style="font-size: 12px; text-align: justify;">O labirinto possui uma estética mais fechada e com paredes rochosas. O jogador passará pode diversos desafios com perguntas e respostas.</p>
+                <h5 class="modal-title" style="color: black; font-size: 13px"><b>Deserto</b></h5>
+                <p style="font-size: 12px; text-align: justify;">O labirinto possui uma estética mais egipcia, passando por passagens com paredes pintadas com símbolos, remetendo a um interior de um templo. O jogador passará pode diversos desafios com perguntas e respostas.</p>
+                <h5 class="modal-title" style="color: black; font-size: 13px"><b>Floresta</b></h5>
+                <p style="font-size: 12px; text-align: justify;">O labirinto possui ambientação harmônica com foco na natureza cheio de paredes e objetos rochosos com musgos. O jogador passará pode diversos desafios com perguntas e respostas.</p>
                 <h5 class="modal-title" style="color: black; font-size: 13px"><b>Casa/Mansão</b></h5>
-                <p style="font-size: 12px; text-align: justify;">Ainda não funciona.</p>
+                <p style="font-size: 12px; text-align: justify;">Labirinto com uma estética simples e limpa, onde o jogador poderá aproveitar o ambiente para se sentir em uma casa cheio de quadros artísticos. O jogador passará pode diversos desafios com perguntas e respostas.</p>
+                <h5 class="modal-title" style="color: black; font-size: 13px"><b>Urbano</b></h5>
+                <p style="font-size: 12px; text-align: justify;">O labirinto possui uma ambientação de um centro de uma cidade, com algumas variações de paredes ( com posteres e rachaduras). O jogador passará pode diversos desafios com perguntas e respostas.</p>
             </div>
         </div>
     </div>

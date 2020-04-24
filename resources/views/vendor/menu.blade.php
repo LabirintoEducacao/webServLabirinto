@@ -773,7 +773,7 @@
             console.log(tempo)
             modal.find('#time4').val(tempo);
             modal.find('#sala_id').val(recipientid);
-            modal.find('#theme').val(recipienttema);
+            modal.find('#theme').val(recipienttema).change();
 
 
             if (recipientcorrect == 1) {

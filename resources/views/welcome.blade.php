@@ -76,7 +76,7 @@
 
                      display: none;
                 }
-            }     
+            }
 
         </style>
     </head>
@@ -125,7 +125,7 @@
                         <div class="card-body text-info">
                             <img class="card-img-top" src="{{ asset('img/console.png') }}" width="80%"/>
                             <div class="card-text links">
-                                <a href="{{ url('virtual') }}">Jogar</a><br>
+                                <a href="{{ url('play') }}">Jogar</a><br>
                             </div>
                         </div>
                     </div>&emsp;&emsp;&emsp;
