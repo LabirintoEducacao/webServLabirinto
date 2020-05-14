@@ -771,42 +771,42 @@ $(document).ready(function () {
     //            var x = $('#tipo_opcao_ref').val();
     //           if(x!=1){
     //               $('#pergunta-reforco').attr({placeholder:"Insira a url"});
-    //               
+    //
     //           }else{
     //               $('#pergunta-reforco').attr({placeholder:"Faça sua pergunta reforço"});
     //           }
-    //               
+    //
     //            console.log($('#tipo_opcao_ref').val());
     //        });
-    //          
-    //          
+    //
+    //
     //          $('#tipo_opcao').on('change', function(){
     //            var x = $('#tipo_opcao').val();
-    //   
+    //
     //           if(x!=1){
-    //     
+    //
     //               document.getElementsByName('resposta[]').attr({placeholder:"Insira a url"});
-    // 
-    //               
+    //
+    //
     //           }else{
-    //     
+    //
     //               document.getElementsByName('resposta[]').attr({placeholder:"Resposta"});
     //
     //           }
-    //               
+    //
     //            console.log($('#tipo_opcao').val());
     //        });
-    //          
-    //          
+    //
+    //
     //          $('#question_type').on('change', function(){
     //            var x = $('#question_type').val();
     //           if(x!=1){
     //               $('#pergunta').attr({placeholder:"Insira a url"});
-    //               
+    //
     //           }else{
     //               $('#pergunta').attr({placeholder:"Faça sua pergunta"});
     //           }
-    //               
+    //
     //            console.log($('#question_type').val());
     //        });
 
@@ -921,21 +921,18 @@ $(document).ready(function () {
             }
 
 
-            if (roomtype.value == 'hope_door') {
+            $('#check-reforco').change();
 
-                $('#check-reforco').trigger("change");
+            if (roomtype.value == 'hope_door') {
                 $('#desabilitar').css('display', 'block');
                 $('#check-reforco').prop("checked", true);
                 if ($("#path_errado_id").val() == 0) {
-                    $(".teste").trigger("click");
-                    $(".teste").trigger("click");
+                    $(".teste").click();
                 }
 
 
 
             } else {
-
-                $('#check-reforco').trigger("change");
                 $('#check-reforco').prop("checked", false);
                 $('#desabilitar').css('display', 'none');
 
@@ -960,31 +957,25 @@ $(document).ready(function () {
                 error: function (error) {
                     console.log(error);
                 },
-                success: function (data) 
+                success: function (data)
                 {
                     console.log(data);
                     a = 0;
                     b = 0;
                     $.each(data, function (i, val) {
                         if (x == 0) {
-                            modal.find('#pergunta').val(val.question);
+                            modal.find('#pergunta').val(val.question).change();
                             //   $('#pergunta').summernote(
                             //    'code', val.question
                             // );
-                            modal.find('#perg_id').val(val.question_id);
+                            modal.find('#perg_id').val(val.question_id).change();
                             console.log(val.question_id);
-                            modal.find('.room_type').val(val.room_type);
-                            modal.find('#question_type').val(val.question_type);
-                            if (val.room_type == "true_or_false") {
-                                $(".room_type").trigger('change');
-                            }
-                            //$(".room_type").trigger('change');
-                            modal.find('#question_type').val(val.question_type);
+                            modal.find('.room_type').val(val.room_type).change();
+                            modal.find('#question_type').val(val.question_type).change();
                             $.each(val.path, function (a, path) {
                                 if (w == 0) {
-                                    modal.find('#answer_boolean').val(path.type);
+                                    modal.find('#answer_boolean').val(path.type).change();
                                     if (path.type == 2) {
-                                        $('#answer_boolean').trigger("change");
                                         if (path.height >= 1 && path.height <= 3)
                                             tamanho = 1;
                                         else if (path.height >= 4 && path.height <= 6)
@@ -994,34 +985,31 @@ $(document).ready(function () {
                                         console.log("tamanho" + tamanho)
 
 
-                                        modal.find('#tamanho').val(tamanho);
+                                        modal.find('#tamanho').val(tamanho).change();
 
-                                        $('#tamanho').trigger("change");
                                         if (path.widht >= 1 && path.widht <= 3)
                                             tamanho = 1;
                                         else if (path.widht >= 4 && path.widht <= 6)
                                             tamanho = 2;
                                         else
                                             tamanho = 3;
-                                        modal.find('#largura').val(tamanho);
-                                        $('#largura').trigger("change");
+                                        modal.find('#largura').val(tamanho).change();
 
                                     }
 
-                                    modal.find('#path_id').val(path.path_id);
+                                    modal.find('#path_id').val(path.path_id).change();
                                     w++;
                                 } else if (document.getElementById('room_type').value == 'hope_door') {
 
                                     $('#desabilitar').css('display', 'block');
                                     $('#check-reforco').prop("checked", true);
-                                    $('#check-reforco').trigger("change");
-                                    modal.find('#answer_boolean_perg').val(path.type);
+                                    $('#check-reforco').change();
+                                    modal.find('#answer_boolean_perg').val(path.type).change();
 
                                     console.log("Path type " + path.type)
 
                                     //                                          console.log("Path perg errado "+ document.getElementById("answer_boolean_perg").value);
                                     if (path.type != 1) {
-                                        $('#answer_boolean_perg').trigger("change");
                                         console.log("altura" + path.height);
                                         if (path.height >= 1 && path.height <= 3)
                                             tamanho = 1;
@@ -1030,8 +1018,7 @@ $(document).ready(function () {
                                         else
                                             tamanho = 3;
 
-                                        modal.find('#tamanho_perg').val(tamanho);
-                                        $('#tamanho_perg').trigger("change");
+                                        modal.find('#tamanho_perg').val(tamanho).change();
 
                                         if (path.widht >= 1 && path.widht <= 3)
                                             tamanho = 1;
@@ -1039,13 +1026,12 @@ $(document).ready(function () {
                                             tamanho = 2;
                                         else
                                             tamanho = 3;
-                                        modal.find('#largura_perg').val(tamanho);
-                                        $('#largura_perg').trigger("change");
+                                        modal.find('#largura_perg').val(tamanho).change();
 
 
                                     }
 
-                                    modal.find('#path_errado_id').val(path.path_id);
+                                    modal.find('#path_errado_id').val(path.path_id).change();
                                 }
                             });
                             console.log(val.answer);
@@ -1054,12 +1040,12 @@ $(document).ready(function () {
                                 console.log(resp.correct);
                                 if (v > 0) {
 
-                                    $("#add").trigger('click');
+                                    $("#add").click();
 
                                 }
 
-                                modal.find("#tipo_opcao").val(resp.tipo_resp);
-                                modal.find(document.getElementsByClassName("resp_id")[v]).val(resp.answer_id);
+                                modal.find("#tipo_opcao").val(resp.tipo_resp).change();
+                                modal.find(document.getElementsByClassName("resp_id")[v]).val(resp.answer_id).change();
                                 if (resp.correct === true) {
                                     modal.find(corretos[v]).attr("value", "1");
                                     modal.find(corretos[v]).attr("checked", "true");
@@ -1067,7 +1053,7 @@ $(document).ready(function () {
                                     modal.find(corretos[v]).attr("value", "0");
                                     //                                        modal.find(corretos[v]).attr("checked", "false");
                                 }
-                                modal.find(document.getElementsByClassName("resposta")[v]).val(resp.answer);
+                                modal.find(document.getElementsByClassName("resposta")[v]).val(resp.answer).change();
                                 v++;
 
                             });
@@ -1075,14 +1061,12 @@ $(document).ready(function () {
                         } else {
                             v = 0;
 
-                            modal.find('#pergunta-reforco').val(val.question);
-                            modal.find('#perg-reforco-id').val(val.question_id);
-                            modal.find('#room_type_ref').val(val.room_type);
-                            $("#room_type_ref").trigger('change');
-                            modal.find('#question_type_ref').val(val.question_type);
-                            modal.find('#path_reforco_id').val(val.path.path_id);
-                            modal.find('#answer_boolean_ref').val(val.path.type);
-                            $('#answer_boolean_ref').trigger("change");
+                            modal.find('#pergunta-reforco').val(val.question).change();
+                            modal.find('#perg-reforco-id').val(val.question_id).change();
+                            modal.find('#room_type_ref').val(val.room_type).change();
+                            modal.find('#question_type_ref').val(val.question_type).change();
+                            modal.find('#path_reforco_id').val(val.path.path_id).change();
+                            modal.find('#answer_boolean_ref').val(val.path.type).change();
 
                             if (val.path.type == 2) {
                                 if (val.path.height >= 1 && val.path.height <= 3)
@@ -1092,8 +1076,7 @@ $(document).ready(function () {
                                 else
                                     tamanho = 3
 
-                            modal.find('#tamanho_ref').val(tamanho);
-                            $('#tamanho_ref').trigger("change");
+                            modal.find('#tamanho_ref').val(tamanho).change();
 
                                  if (val.path.widht >= 1 && val.path.widht <= 3)
                                             tamanho = 1;
@@ -1101,18 +1084,17 @@ $(document).ready(function () {
                                             tamanho = 2;
                                         else
                                             tamanho = 3;
-                                        modal.find('#largura_ref').val(tamanho);
-                                        $('#largura_ref').trigger("change");
+                                        modal.find('#largura_ref').val(tamanho).change();
                             }
 
-                           
+
 
 
                             console.log(val.answer)
                             $.each(val.answer, function (j, ref) {
                                 if (v > 0) {
 
-                                    $(".teste").trigger('click');
+                                    $(".teste").click();
 
                                 }
                                 console.log(ref.answer)
@@ -1151,13 +1133,12 @@ $(document).ready(function () {
             //           modal.find('#pergunta_path').val(recipientpath);
             //           modal.find('#pergunta_id').val(recipientid);
         } else {
-            modal.find('#pergunta').val('');
-            modal.find('#perg_id').val(0);
-            modal.find('.room_type').val('right_key');
-            modal.find('#question_type').val(1);
-            modal.find('#perg-reforco-id').val(0);
+            modal.find('#pergunta').val('').change();
+            modal.find('#perg_id').val(0).change();
+            modal.find('.room_type').val('right_key').change();
+            modal.find('#question_type').val(1).change();
+            modal.find('#perg-reforco-id').val(0).change();
             i++;
-            $("#add").trigger('click');
             $("#add").trigger('click');
 
 
@@ -1514,7 +1495,6 @@ $('#salaEModal').on('show.bs.modal', function (event) {
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
     var modal = $(this);
     modal.find('#nome').val(recipientnome);
-    modal.find('#time').val(recipientresp);
     modal.find('#sala_id').val(recipientid);
     modal.find('#theme').val(recipienttema);
     modal.find('#enable').val(recipientenable);
@@ -1589,7 +1569,7 @@ function buscaraluno() {
 
 $(document).ready(function () {
 
-    ///// Tempo do aleta reforco    
+    ///// Tempo do aleta reforco
     // function enter() {
 
     //     $("#texto").fadeOut("slow");

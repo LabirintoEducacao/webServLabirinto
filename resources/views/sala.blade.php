@@ -68,9 +68,6 @@
                                         Tema
                                     </th>
                                     <th>
-                                        Tempo
-                                    </th>
-                                    <th>
                                         Tipo
                                     </th>
                                     <th>
@@ -109,7 +106,6 @@
                                             $x = gmdate("H:i:s", $sala->duracao);
 
                                         ?>
-                                        <td onclick="window.location.href = '{{ url('admin/visualizar/'.$sala->id) }}'; ">{{ $x }}</td>
                                         <td onclick="window.location.href = '{{ url('admin/visualizar/'.$sala->id) }}'; ">
                                             @if($sala->public==0)
                                             Privada
@@ -160,9 +156,6 @@
                                         Tema
                                     </th>
                                     <th>
-                                        Tempo
-                                    </th>
-                                    <th>
                                         Tipo
                                     </th>
                                     <th>
@@ -201,7 +194,6 @@
                                                 Urbano
                                             @endif
                                         </td>
-                                        <td onclick="window.location.href = '{{ url('admin/visualizar/'.$sala->id) }}'; ">{{ $x }}</td>
                                         <td onclick="window.location.href = '{{ url('admin/visualizar/'.$sala->id) }}'; ">
                                             @if($sala->public==0)
                                             Privada
@@ -250,9 +242,6 @@
                                         Tema
                                     </th>
                                     <th>
-                                        Tempo
-                                    </th>
-                                    <th>
                                         Tipo
                                     </th>
                                     <th>
@@ -291,7 +280,6 @@
                                                 Urbano
                                             @endif
                                         </td>
-                                        <td onclick="window.location.href = '{{ url('admin/visualizar/'.$sala->id) }}'; ">{{ $x }}</td>
                                         <td onclick="window.location.href = '{{ url('admin/visualizar/'.$sala->id) }}'; ">
                                             @if($sala->public==0)
                                             Privada
@@ -341,9 +329,6 @@
                                         Tema
                                     </th>
                                     <th>
-                                        Tempo
-                                    </th>
-                                    <th>
                                         Tipo
                                     </th>
                                     <th>
@@ -378,7 +363,6 @@
                                                 Urbano
                                             @endif
                                         </td>
-                                        <td onclick="window.location.href = '{{ url('admin/visualizar/'.$sala->id) }}'; ">{{ $x }}</td>
                                         <td onclick="window.location.href = '{{ url('admin/visualizar/'.$sala->id) }}'; ">
                                             @if($sala->public==0)
                                             Privada
@@ -428,9 +412,6 @@
                                         Tema
                                     </th>
                                     <th>
-                                        Tempo
-                                    </th>
-                                    <th>
                                         Tipo
                                     </th>
                                     <th>
@@ -466,7 +447,6 @@
                                                 Urbano
                                             @endif
                                         </td>
-                                        <td onclick="window.location.href = '{{ url('admin/visualizar/'.$sala->id) }}'; ">{{ $x }}</td>
                                         <td onclick="window.location.href = '{{ url('admin/visualizar/'.$sala->id) }}'; ">
                                             @if($sala->public==0)
                                             Privada
@@ -525,7 +505,7 @@
                 </div>
                 <form action="{{ url('admin/sala') }}" method="POST" style="margin-left: 5%;margin-right:1%;margin-top:3%">
                     @csrf
-                    <div class="modal-body">
+                    <div class="modal-body" style="overflow-y: initial">
                         <input type="hidden" name="id_prof" value="{{ Auth::user()->id }}">
                         <input type="hidden" name="sala_id" id="sala_id" value="0">
                         <div class="form-group">
@@ -540,13 +520,6 @@
                             </div>
                             @endif
 
-                        </div>
-                        <div class="form-group" style="margin-top:3.5%">
-                            <label for="time" display="inline">Tempo de Duração de cada sala (em minutos):</label>
-                            <input type="time" name="time2" id="time2" step='1' class="form-control" min="00:00:00" max="01:00:00" onblur="transforma(this.value,0);" value="00:00:00">
-                            <small id="namelHelp" style="color:red;font-size:10px">CASO DEIXE COMO 0, O ALUNO TERÁ TEMPO ILIMITADO PARA RESPONDER AS PERGUNTAS </small>
-
-                            <input type="hidden" name="time5" id="time5" class="form-control" value="0">
                         </div>
 
                         <div class="form-row">
@@ -616,7 +589,7 @@
                 </div>
                 <form action="{{ url('admin/sala') }}" method="POST" style="margin-left: 5%;margin-right:1%;margin-top:3%">
                     @csrf
-                    <div class="modal-body">
+                    <div class="modal-body" style="overflow-y: initial">
                         <input type="hidden" name="id_prof" value="{{ Auth::user()->id }}">
                         <input type="hidden" name="sala_id" id="sala_id" value="0">
                         <input type="hidden" value="0" id="page" name="page">
@@ -630,11 +603,6 @@
                             </div>
                             @endif
 
-                        </div>
-                        <div class="form-group" style="margin-top:3.5%">
-                            <label for="time" display="inline">Tempo de Duração de cada sala (em minutos):</label>
-                            <input type="time" name="time3" id="time3" step='1' class="form-control" min="00:00:00" max="01:00:00" onblur="transforma(this.value,1);">
-                            <input type="hidden" name="time4" id="time4" class="form-control">
                         </div>
 
                         <div class="form-row">

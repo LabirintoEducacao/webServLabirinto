@@ -299,9 +299,6 @@
                     <table class="table">
                         <thead class=" text-primary">
                             <th>
-                                Tempo de duração (em minutos)
-                            </th>
-                            <th>
                                 Tema
                             </th>
                             <th>
@@ -313,9 +310,6 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
-                                    {{$x}}
-                                </td>
                                 <td>
                                     @if($sala->tematica=="icy_maze")
                                         Gelo
@@ -586,7 +580,7 @@
             </div>
             <form action="{{ url('admin/sala') }}" method="POST" style="margin-left: 5%;margin-right:1%;margin-top:3%">
                 @csrf
-                <div class="modal-body">
+                <div class="modal-body" style="overflow-y: initial">
                     <input type="hidden" name="id_prof" value="{{ Auth::user()->id }}">
                     <input type="hidden" name="sala_id" id="sala_id" value="0">
                     <input type="hidden" value="1" id="page" name="page">
@@ -599,12 +593,6 @@
                             {{ $errors->first('nome') }}
                         </div>
                         @endif
-
-                    </div>
-                    <div class="form-group" style="margin-top:3.5%">
-                        <label for="time" display="inline">Tempo de Duração de cada sala (em minutos):</label>
-                        <input type="time" name="time3" id="time3" step='1' class="form-control" min="00:00:00" max="01:00:00" onblur="transforma(this.value,1);">
-                        <input type="hidden" name="time4" id="time4" class="form-control">
 
                     </div>
 

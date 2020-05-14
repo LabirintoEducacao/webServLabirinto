@@ -312,35 +312,35 @@
                             <a class="nav-link" href="{{ route('userLogin') }}">{{ __('Login') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('userRegister') }}">{{ __('Registrar') }}</a>
+                            <a class="nav-link" href="{{ route('userRegister') }}">{{ __('Cadastrar') }}</a>
                         </li>
                         @elseif (\Request::is('login'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Registrar') }}</a>
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Cadastrar') }}</a>
                         </li>
                         @elseif (\Request::is('usuario/register'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('userLogin') }}">{{ __('Login') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('userRegister') }}">{{ __('Registrar') }}</a>
+                            <a class="nav-link" href="{{ route('userRegister') }}">{{ __('Cadastrar') }}</a>
                         </li>
                         @elseif (\Request::is('virtual'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('userLogin') }}">{{ __('Login') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('userRegister') }}">{{ __('Registrar') }}</a>
+                            <a class="nav-link" href="{{ route('userRegister') }}">{{ __('Cadastrar') }}</a>
                         </li>
                         @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Registrar') }}</a>
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Cadastrar') }}</a>
                         </li>
 
                         @endif
@@ -390,10 +390,10 @@
                 break;
         }
         @endif
-        
-        
-        
-        
+
+
+
+
                 function qrcodebtn(id) {
 
 
@@ -461,7 +461,7 @@
 
 
             });
-            
+
 
         });
 

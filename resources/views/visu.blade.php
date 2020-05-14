@@ -60,7 +60,7 @@
                                     </tr>
                                 </tbody>
                         </table>
-                        
+
                     </div>
                     <div class="meio" style="padding-bottom:10%;">
                         <button type="button" class="btn btn-primary" style="float:left;">Estatistícas</button>
@@ -69,11 +69,11 @@
                         @endif
                     </div>
                     <div id="flip">
-                        
-                      
+
+
                       <div class="row align-items-center">
                         <div class="col-auto mr-auto">
-                        
+
                         </div>
                         <div class="col-auto">
                         <a class="nav-link" href="#pablo" id="sala{{$sala->id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -86,7 +86,7 @@
                         </div>
                        </div>
                     </div>
-                    <div id="panel"></div>               
+                    <div id="panel"></div>
                 </div>
             </div>
         </div>

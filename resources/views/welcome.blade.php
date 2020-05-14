@@ -9,6 +9,7 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="js/all.js"></script>
 
 
         <!-- Styles -->
@@ -81,56 +82,75 @@
         </style>
     </head>
     <body>
-        <div class="position-ref full-height">
+
+    <div class="container position-ref full-height">
+        <div class="row" style="margin-top: 16px; margin-bottom: 16px">
+            <div class="col-md-8"></div>
             @if (Route::has('login'))
-                <div class="top-right links mobile-hide">
+                <div class="links mobile-hide col-md-4" style="text-align: right">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Registrar</a>
+                            <a href="{{ route('register') }}">Cadastrar</a>
                         @endif
                     @endauth
                 </div>
             @endif
-             <div class="content logins row">
-                <p class="col-md-12 title m-b-md justify-content-center" style="margin-top: 10%;">
-                    Labirinto
-                </p>
-                <div class="row col-md-12" style="margin-left: 8%;">
-                    <div class="card border-info col-md-3 col-sm-12">
-                        <div class="card-header">Aluno</div>
-                        <div class="card-body text-info">
-                            <img class="card-img-top" src="{{ asset('img/aluno.png') }}" width="80%"/>
-                            <div class="card-text links">
-                                <a href="{{ url('usuario/login') }}">Login</a><br>
-                                <a href="{{ url('usuario/register') }}">Cadastre-se</a>
-                            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 title m-b-md justify-content-center" style="margin-top: 7%; text-align: center">
+                Labirinto da Educação
+            </div>
+        </div>
+
+        <div class="row content logins">
+            <div class="col-md-4 col-sm-12" style="margin-bottom: 16px">
+                <div class="card border-info">
+                    <div class="card-header">Aluno</div>
+                    <div class="card-body text-info">
+                        <i class="fas fa-user-graduate fa-10x" style="width: 80%; color: #636b6f; margin: 8px"></i>
+                        <div class="card-text links">
+                            <a href="{{ url('usuario/login') }}">Login</a><br>
+                            <a href="{{ url('usuario/register') }}">Cadastre-se</a>
                         </div>
-                    </div>&emsp;&emsp;&emsp;
-                    <div class="card border-info col-md-3 col-sm-12">
-                        <div class="card-header">Professor</div>
-                        <div class="card-body text-info">
-                            <img class="card-img-top" src="{{ asset('img/professor.png') }}" width="80%"/>
-                            <div class="card-text links">
-                                <a href="{{ url('login') }}">Login</a><br>
-                                <a href="{{ url('register') }}">Cadastre-se</a>
-                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12" style="margin-bottom: 16px">
+                <div class="card border-info">
+                    <div class="card-header">Professor</div>
+                    <div class="card-body text-info">
+                        <i class="fas fa-chalkboard-teacher fa-10x" style="width: 80%; color: #636b6f; margin: 8px"></i>
+                        <div class="card-text links">
+                            <a href="{{ url('login') }}">Login</a><br>
+                            <a href="{{ url('register') }}">Cadastre-se</a>
                         </div>
-                    </div>&emsp;&emsp;&emsp;
-                    <div class="card border-info col-md-3 col-sm-12">
-                        <div class="card-header">Jogos Públicos</div>
-                        <div class="card-body text-info">
-                            <img class="card-img-top" src="{{ asset('img/console.png') }}" width="80%"/>
-                            <div class="card-text links">
-                                <a href="{{ url('play') }}">Jogar</a><br>
-                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12" style="margin-bottom: 16px">
+                <div class="card border-info">
+                    <div class="card-header">Jogos Públicos</div>
+                    <div class="card-body text-info">
+                        <i class="fas fa-gamepad fa-10x" style="width: 80%; color: #636b6f; margin: 8px"></i>
+                        <div class="card-text links">
+                            <a href="{{ url('play') }}">Jogar</a><br/>
+                            <br/>
                         </div>
-                    </div>&emsp;&emsp;&emsp;
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+
+
+
+
     </body>
 </html>

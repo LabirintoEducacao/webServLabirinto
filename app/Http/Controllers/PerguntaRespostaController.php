@@ -26,11 +26,11 @@ class PerguntaRespostaController extends Controller
     //      $data = \App\Sala::all ();
     //     return view ( 'edit_sala' )->withData ( $data );
     // }
-    
-    
 
-    
-    
+
+
+
+
     public function buscar(Request $request){
         $id = $request->id;
         $pergunta = DB::table('perguntas')->where('id',$id)->get();
@@ -48,7 +48,7 @@ class PerguntaRespostaController extends Controller
         // - Puxando o id dos Paths
         $pathid = DB::table('path_perg')->where('perg_id',$pergid)->get();
 
-    // ------------------ Pergunta Reforço ------------------------- 
+    // ------------------ Pergunta Reforço -------------------------
 
         if(count($reforcoid) == 0){
             $idref=0;
@@ -88,13 +88,13 @@ class PerguntaRespostaController extends Controller
                 'path_id' => $pathrefs[0]->id
             );
 
-            // ------------------ Respostas Reforço -------------------------    
+            // ------------------ Respostas Reforço -------------------------
 
             foreach ($ref_resp as  $value) {
 
                 $idresp = $value->resp_id;
 
-                $respostaref =  Resposta::select('id','tipo_resp','resposta','corret')->where('id',$idresp )->get();     
+                $respostaref =  Resposta::select('id','tipo_resp','resposta','corret')->where('id',$idresp )->get();
 
                 if($respostaref[0]->corret == 0) {
                     $answ = false;
@@ -128,8 +128,8 @@ class PerguntaRespostaController extends Controller
         // Puxando as respostas com o id da tabela de relação !!!!!
         foreach ($respostaid as   $value) {
             $id = $value->resp_id;
-            $resposta =  Resposta::select('id','tipo_resp','resposta','corret')->where('id', $id)->get();  
-            // Preenchendo os campos do json com as respostas !!!!!!!          
+            $resposta =  Resposta::select('id','tipo_resp','resposta','corret')->where('id', $id)->get();
+            // Preenchendo os campos do json com as respostas !!!!!!!
             if($resposta[0]->corret == 0) {
                 $answ = false;
             }
@@ -182,7 +182,7 @@ class PerguntaRespostaController extends Controller
                     'path_id' => $path[0]->id,
                     'conect_question'=> $conect
                 );
-            }       
+            }
 
 
             $paths [] = $pat;
@@ -201,18 +201,18 @@ class PerguntaRespostaController extends Controller
         );
         if(count($reforcoid) > 0){
             $arperg [] = $perguntas;
-            $arperg [] = $ref; 
+            $arperg [] = $ref;
         }
         if(count($reforcoid) == 0){
             $arperg [] = $perguntas;
         }
         $jsn = [
             "questions" => $arperg
-        ]; 
+        ];
 
 //        return response()->json(['data' => json_encode($jsn)]);
         return json_encode($arperg);
-        
+
 //        $teste_perg=Pergunta::find(49);
 //        echo $teste_perg->sala_id;
     }
@@ -230,13 +230,13 @@ class PerguntaRespostaController extends Controller
         ->get();
         return view('teste_perg')->with(['data' => $perguntas, 'resps' =>$respostas, 'perg_resps' => $perg_resps]);
     }
-    
-    
-    public function index($id)
-    {  
 
-        $ref =0; 
-        
+
+    public function index($id)
+    {
+
+        $ref =0;
+
         /*$sql = 'SELECT COUNT(id) FROM perguntas';
         $sql += 'WHERE sala_id = ' . $id;
         $sql += 'AND ordem IS NOT NULL';
@@ -246,7 +246,7 @@ class PerguntaRespostaController extends Controller
         $sala = DB::table('salas')
         ->where('id','=',$id)
         ->get();
-        
+
         $perguntas = Pergunta::where('sala_id', $id)->whereNotNull('ordem')
         ->orderBy('ordem')->paginate(5);
 
@@ -256,7 +256,7 @@ class PerguntaRespostaController extends Controller
         ->get();
         $paths = DB::table('paths')
         ->get();
-        
+
         $ref = DB::table('perguntas')
         ->where('sala_id','=',$id )->whereNull('ordem')
         ->get();
@@ -305,18 +305,18 @@ class PerguntaRespostaController extends Controller
    //          ->where('perguntas.sala_id', '=', $id)
    //          ->where('perguntas.id','=', 1)
    //          ->get();
-        
 
 
 
 
 
-        
-
-        
 
 
-        
+
+
+
+
+
         $teste50 =  count($qtdresps);
         //$teste50 = $id_pergunta[1]->id ;
 
@@ -326,7 +326,7 @@ class PerguntaRespostaController extends Controller
         }else{
             $count_pergs=0;
         }
-        
+
         if(count($ref)>0){
             $count_ref=count($ref);
         }else{
@@ -336,10 +336,10 @@ class PerguntaRespostaController extends Controller
         ->where('sala_id','=',$id)
         ->get();
         $perg_resp =  DB::table('perg_resp')
-        ->get();   
+        ->get();
         return view ( 'edit_sala', ['id' => $id, 'sala'=>$sala[0] ] )->with(['data' => $perguntas, 'respostas' => $respostas, 'perg_resp' => $perg_resp, 'path_perg' => $path_perg, 'paths' => $paths,'pergs'=>$pergs,'c_perg'=>$count_pergs,'totalperg'=>$teste50,'c_ref'=>$count_ref, 'refs' =>$ref,'perg_refs'=>$perg_refs]);
     }
-    
+
     public function alterar(Request $request){
         if($request->ajax())
         {
@@ -347,12 +347,12 @@ class PerguntaRespostaController extends Controller
             $y=1;
             for($count = 0; $count < count($lista); $count++)
             {
-                
+
                 $perg = Pergunta::find($lista[$count]);
                 $perg->ordem=$y;
                 $perg->save();
-                
-                
+
+
                 $y++;
 
             }
@@ -401,7 +401,7 @@ class PerguntaRespostaController extends Controller
         DB::table('paths')
         ->where('id','=',$data['pergunta_path'])
         ->update(['ambiente_perg' => $data['pergunta_ambiente'],'tamanho' => $data['pergunta_tamanho'], 'largura' => $data['pergunta_largura']]);
-        
+
         $perg = DB::table('perguntas')
         ->where('sala_id','=',$data['sala_id'] )->whereNotNull('ordem')
         ->orderBy('ordem')
@@ -418,7 +418,7 @@ class PerguntaRespostaController extends Controller
         ->where('sala_id','=',$data['sala_id'])
         ->get();
         $perg_resp =  DB::table('perg_resp')
-        ->get();   
+        ->get();
 
         $notification = array(
             'message' => 'Pergunta alterada com sucesso!',
@@ -427,8 +427,8 @@ class PerguntaRespostaController extends Controller
 
         return redirect('admin/editar-sala/'. $data['sala_id'])->with(['data' => $perg, 'ref' => $ref, 'respostas' => $respostas, 'perg_resp' => $perg_resp, 'path_perg' => $path_perg, 'paths' => $paths])->with($notification);
     }
-    
-    
+
+
     public function edit_ambi(Request $request){
         $data = $request->all();
         DB::table('paths')
@@ -450,7 +450,7 @@ class PerguntaRespostaController extends Controller
         ->where('sala_id','=',$data['sala_id'])
         ->get();
         $perg_resp =  DB::table('perg_resp')
-        ->get(); 
+        ->get();
 
 
         $notification = array(
@@ -460,7 +460,7 @@ class PerguntaRespostaController extends Controller
 
         return redirect('admin/editar-sala/'. $data['sala_id'])->with(['data' => $perg, 'ref' => $ref, 'respostas' => $respostas, 'perg_resp' => $perg_resp, 'path_perg' => $path_perg, 'paths' => $paths])->with($notification);
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -503,7 +503,7 @@ class PerguntaRespostaController extends Controller
             {
                 return response()->json(['error' => $error->errors()->all()]);
 
-            }  
+            }
 
             if($request->perg_id == 0){
 
@@ -699,7 +699,7 @@ class PerguntaRespostaController extends Controller
 
                             $largura_ref = rand(7,10);
 
-                        } 
+                        }
 
 
                     }
@@ -729,7 +729,7 @@ class PerguntaRespostaController extends Controller
                     'tipo_perg' => $tipo_perg_ref,
                     'pergunta' => $pergunta_ref,
                     'room_type' => $room_type_ref
-                    ));  
+                    ));
 
                     DB::table('path_perg')->insert(array('perg_id' => $pergid, 'path_id' =>  $pathidperg));
 
@@ -829,7 +829,7 @@ class PerguntaRespostaController extends Controller
                 }
 
                 $ambiente_perg = $request->answer_boolean;
-                
+
                 $tamanho1 = $request->tamanho;
                 $largura1 = $request->largura;
                 if($ambiente_perg==1){
@@ -838,13 +838,13 @@ class PerguntaRespostaController extends Controller
 
                 }else{
 
-                    
+
                     if($tamanho1 == 1 ){
                         $tamanho_perg = rand(1,3);
 
                     }else if($tamanho1 == 2 ){
                         $tamanho_perg = rand(4,6);
-                        
+
 
                     }else if($tamanho1 == 3 ){
                         $tamanho_perg = rand(7,10);
@@ -861,7 +861,7 @@ class PerguntaRespostaController extends Controller
                     }
 
                 }
-                
+
                 //return response()->json(["success"=>$request->path_id]);
                 DB::table('paths')
                 ->where('id','=', $request->path_id)
@@ -915,7 +915,7 @@ class PerguntaRespostaController extends Controller
 
                             $largura_ref = rand(7,10);
 
-                        } 
+                        }
 
 
                     }
@@ -1013,13 +1013,13 @@ class PerguntaRespostaController extends Controller
 
                     $perg_ref = DB::table('perg_ref')
                     ->where('perg_id','=',$request->perg_id)
-                    ->get();      
+                    ->get();
 
                     if(count($perg_ref)>0){
                         DB::table('perguntas')
                         ->where('id','=', $perg_ref[0]->ref_id)
                         ->update(['tipo_perg' => $request->question_type_ref,'pergunta' => $request->reforco,'room_type' => $request->room_type_ref]);
-                        
+
                         $ambiente_perg = $request->answer_boolean_perg;
                         $tamanho1 = $request->tamanho_perg;
                         $largura1 = $request->largura_perg;
@@ -1054,7 +1054,7 @@ class PerguntaRespostaController extends Controller
 
 
                         }
-                        
+
                         DB::table('paths')
                         ->join('path_perg', 'paths.id', '=', 'path_perg.path_id')
                         ->where('path_perg.perg_id','=', $perg_ref[0]->ref_id)
@@ -1202,7 +1202,7 @@ class PerguntaRespostaController extends Controller
                         'tipo_perg' => $tipo_perg_ref,
                         'pergunta' => $pergunta_ref,
                         'room_type' => $room_type_ref
-                        ));  
+                        ));
 
                         DB::table('path_perg')->insert(array('perg_id' => $request->perg_id, 'path_id' =>  $pathidperg));
 
@@ -1240,7 +1240,7 @@ class PerguntaRespostaController extends Controller
                     if(count($paths_perg)>1){
                         $perg_ref = DB::table('perg_ref')
                         ->where('perg_id','=',$request->perg_id)
-                        ->get();      
+                        ->get();
 
                         if(count($perg_ref)>0){
                             $repostas_ref = DB::table('perg_resp')
@@ -1357,7 +1357,7 @@ class PerguntaRespostaController extends Controller
 
         if(count($perguntaref)> 0){
 
-           $ref = $perguntaref[0]->ref_id; 
+           $ref = $perguntaref[0]->ref_id;
            $resp2 = DB::table('perg_resp')
            ->select('resp_id')
            ->where('perg_id', '=', $ref)
@@ -1374,16 +1374,16 @@ class PerguntaRespostaController extends Controller
 
     }
 
-    
-    
+
+
     DB::table('perg_resp')->where('perg_id', '=', $id)->delete();
     DB::table('perguntas')->where('id', '=', $id)->delete();
 
-    
+
     foreach ($resp as $resp_id) {
         DB::table('respostas')->where('id', '=', $resp_id->resp_id)->delete();
     }
-    
+
     $notification = array(
         'message' => 'Pergunta deletada com sucesso!',
         'alert-type' => 'danger'
@@ -1393,7 +1393,7 @@ class PerguntaRespostaController extends Controller
 
 public function indexJson($id)
 {
-   
+
       // $pergunta =  Pergunta::select('id','tipo_perg','pergunta','room_type')->where('sala_id', $id)->whereNotNull('ordem')->orderBy('ordem')->get();
 
 
@@ -1402,11 +1402,11 @@ public function indexJson($id)
 
       //       $id_perg = $value->id;
       //       $resp_rel = DB::table('perg_resp')->select('resp_id') ->where('perg_id',$id_perg)->get();
-  
+
 
 
       //        foreach ($resp_rel as $key ) {
- 
+
       //           $resposta[] =  Resposta::select('id','tipo_resp','resposta','corret')->where('id', $key->resp_id)->get();
 
 
@@ -1429,7 +1429,7 @@ public function indexJson($id)
       //       return json_encode($respjsn);
 
 
-  
+
       //       }
 
    $respostas =  Resposta::select('id','tipo_resp','corret','resposta')->get();

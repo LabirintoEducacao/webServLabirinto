@@ -114,11 +114,10 @@ class SalaController extends Controller
 
 
     if ($request->sala_id == 0) {
-      $time = $request->input('time5');
       $sala = new Sala();
       $sala->prof_id = $request->input('id_prof');
       $sala->name = $request->input('nome');
-      $sala->duracao = $time;
+      $sala->duracao = 0;
       $sala->tematica = $request->input('theme');
       if ($request->public == null) {
         $sala->public = 0;
@@ -158,10 +157,9 @@ class SalaController extends Controller
     } else {
       var_dump($request->input('enable1'));
       var_dump($request->input('public1'));
-      $time = $request->input('time4');
       $sala = Sala::find($request->sala_id);
       $sala->name = $request->input('nome');
-      $sala->duracao = $time;
+      $sala->duracao = 0;
       $sala->tematica = $request->input('theme');
       if ($request->input('public1') == null || $request->input('public1') == 0) {
         $sala->public = 0;
