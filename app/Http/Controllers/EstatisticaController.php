@@ -203,21 +203,16 @@ class EstatisticaController extends Controller
         $event = $resposta['event_name'];
 
 
-        $start = DB::table('data')->where('maze_id', $resposta['maze_id'])->where('user_id', $resposta['user_id'])->select('event', 'start')->get();
+        $start = DB::table('data')->where('maze_id', $resposta['maze_id'])->where('user_id', $resposta['user_id'])->select('event', 'start')->orderBy('start', 'desc')->first();
 
-
-        foreach ($start as $value) {
-
-
-            if ($value->event == 'maze_end') {
-
-
-                $jogadas = (int)$value->start;
+        
+        if($start){
+            $jogadas = $start->start;
+            if($start->event == "maze_end"){
                 $jogadas++;
-
-
+            } else if($event == 'maze_start'){
+                $jogadas++;
             }
-
         }
 
         $eventos_gerais = array(
@@ -550,6 +545,7 @@ class EstatisticaController extends Controller
                     }
                     if($stop->event == "question_start" || $stop->event == "maze_continue"){
                         $rooms[$stop->question_id]['enterTime'] = strtotime($stop->created_at);
+                        $nextquestion = $stop->question_id;
                     }
                     if($stop->event == "maze_paused"){
                         $rooms[$stop->question_id]['timeInside'] += (strtotime($stop->created_at) - $rooms[$stop->question_id]['enterTime']);
@@ -557,7 +553,7 @@ class EstatisticaController extends Controller
                     if($stop->event == "question_end"){
                         $correct_count = $stop->correct_count;
                         $wrong_count = $stop->wrong_count;
-                        if($stop->correct == 1 && $stop->ordem != 1000000){
+                        if($stop->correct == 1){
                             $lastquestion = $stop->question_id;
                         }
                         $rooms[$stop->question_id]['timeInside'] += (strtotime($stop->created_at) - $rooms[$stop->question_id]['enterTime']);
@@ -567,39 +563,32 @@ class EstatisticaController extends Controller
                     }
                     $time_elapsed = $stop->elapsed_time;
                 }
+            }
 
-                foreach ($tperg as $perg){
-                    if($indexperg == 0){
-                        $startquestion = $perg->id;
-                    }
-                    $indexperg ++;
-                    if($perg->id == $lastquestion){
-                        $next = $perg->ordem + 1;
-                    }
-
-                    if($next > -1 && $perg->ordem >= $next && $perg->ordem < $maxOrdem){
-                        $nextquestion = $perg->id;
-                        $maxOrdem = $perg->ordem;
-                    }
-
-                    if(isset($rooms[$perg->id])){
-                        $room = $rooms[$perg->id];
-                    } else {
-                        $room['room_id'] = $perg->id;
-                        $room['answer_id'] = 0;
-                        $room['right'] = 0;
-                        $room['wrongs'] = 0;
-                        $room['status'] = 0;
-                        $room['enterTime'] = 0;
-                        $room['timeInside'] = 0;
-                    }
-                    array_push($resrooms, $room);
+            foreach ($tperg as $perg){
+                if($indexperg == 0){
+                    $startquestion = $perg->id;
                 }
 
-                if($lastquestion == 0){
-                    $lastquestion = null;
+                if(isset($rooms[$perg->id])){
+                    $room = $rooms[$perg->id];
+                } else {
+                    $room['room_id'] = $perg->id;
+                    $room['answer_id'] = 0;
+                    $room['right'] = 0;
+                    $room['wrongs'] = 0;
+                    $room['status'] = 0;
+                    $room['enterTime'] = 0;
+                    $room['timeInside'] = 0;
                 }
+                array_push($resrooms, $room);
+            }
 
+            if($lastquestion == 0){
+                $lastquestion = null;
+            }
+
+            if(count($save) > 0){
                 if($gamestat == 0){
                     $load = array(
                         "stopped_question"=>$lastquestion,
@@ -622,9 +611,10 @@ class EstatisticaController extends Controller
                     );
 
                 }
+
             } else{
                 $load = array(
-                    "stopped_question"=> $startquestion,
+                    "stopped_question"=> null,
                     "next_question"=> $startquestion,
                     "correct_count"=>0,
                     "wrong_count"=>0,

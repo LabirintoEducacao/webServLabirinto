@@ -496,6 +496,7 @@ class SalaController extends Controller
 
 
         foreach ($salas_publicas as $salas) {
+            $jsn = array();
 
 
 
@@ -600,6 +601,17 @@ class SalaController extends Controller
               'Reforco' => $i,
               'Progress' => $progress
             );
+
+              $salaData = array(
+
+                  'id' => $salas->id,
+                  'name' => $salas->name,
+                  'Pergunta' => $total,
+                  'Reforco' => $i,
+                  'Progress' => $progress
+              );
+
+              array_push($jsn, $salaData);
           }
         }
 
@@ -643,6 +655,7 @@ class SalaController extends Controller
         $salas_user = DB::table('sala_user')->where('user_id', '=', $json)->get();
 
         if (count($salas_user) > 0) {
+            $jsn = array();
 
           foreach ($salas_user as $sala_user) {
 
@@ -657,7 +670,6 @@ class SalaController extends Controller
             $indexperg = 1;
             $progress = 0;
             $jogada = 0;
-            $jsn = array();
 
 
             $tperg = Pergunta::select('id', 'ordem')->where('sala_id', $maze)->orderBy('ordem')->get();
@@ -742,19 +754,20 @@ class SalaController extends Controller
                 ->where('id', '=', $sala_user->sala_id)
                 ->where('public', '=', 0)
                 ->select('id', 'name')->get();
-              if (count($sala) > 0)
+              if (count($sala) > 0){
+                  $salaData = array(
 
-                $jsn[] = array(
+                      'id' => $sala[0]->id,
+                      'name' => $sala[0]->name,
+                      'Pergunta' => $total,
+                      'Reforco' => $i,
+                      'Progress' => $progress
+                  );
 
-                  'id' => $sala[0]->id,
-                  'name' => $sala[0]->name,
-                  'Pergunta' => $total,
-                  'Reforco' => $i,
-                  'Progress' => $progress
-                );
+                  array_push($jsn, $salaData);
+              }
             }
           }
-
 
           $resultado = array(
 
