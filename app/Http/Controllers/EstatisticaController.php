@@ -509,10 +509,13 @@ class EstatisticaController extends Controller
 
         }
         else{
+            $save = [];
 
-            $jogada = $start['start'];
+            if($start){
+                $jogada = $start['start'];
 
-            $save =  Data::select('event','question_id','correct_count','wrong_count','correct','answer_id', 'created_at', 'elapsed_time')->where('user_id',$id)->where('maze_id',$maze)->where('start',$jogada)->orderBy('id', 'asc')->get();
+                $save =  Data::select('event','question_id','correct_count','wrong_count','correct','answer_id', 'created_at', 'elapsed_time')->where('user_id',$id)->where('maze_id',$maze)->where('start',$jogada)->orderBy('id', 'asc')->get();
+            }
 
             if(count($save)>0){
 
