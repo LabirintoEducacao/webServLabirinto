@@ -824,10 +824,12 @@ function removeAluno(option, id, turma) {
         if (turma == 1) {
             $('.aluno_sala' + id).css('background-color', 'rgba(247,203,203,0.72)');
         }
+        let idsala = $("#id_sala").val();
         remove.push(id);
         $('#aluno' + id).css('background-color', 'rgba(247,203,203,0.72)');
         $("#checkremove" + id).css('display', 'none');
         $("#checkreturn" + id).css('display', 'block');
+        $("#save_remove").show();
     } else if (option == 1) {
         if (turma == 1) {
             $('.aluno_sala' + id).css('background-color', 'white');
@@ -840,6 +842,9 @@ function removeAluno(option, id, turma) {
         $('#aluno' + id).css('background-color', 'white');
         $("#checkremove" + id).css('display', 'block');
         $("#checkreturn" + id).css('display', 'none');
+        if(remove.length == 0){
+            $("#save_remove").hide();
+        }
     }
     console.log(remove);
 }
@@ -902,6 +907,23 @@ function check(id, option) {
             $(".texto-confirmar").html("Deseja mesmo salvar as alterações?");
         }, 300);
 
+    } else if(option == 5){
+
+        let idsala1 = $("#id_sala").val();
+        $("#save_remove").attr("data-toggle", "modal");
+        $("#save_remove").attr("data-target", "#confirmalert");
+        $("#confirmalert").css("z-index", "9999");
+
+
+
+        $("#save_remove").attr("data-toggle", "modal");
+        $("#save_remove").attr("data-target", "#confirmalert");
+        $("#confirmalert").css("z-index", "9999");
+
+        setTimeout(function () {
+            $("#confirmar").attr("onclick", "salvar_alteracoes(" + idsala1 + ',3)');
+            $(".texto-confirmar").html("Deseja mesmo salvar as alterações?");
+        }, 300);
     } else {
 
         $("#save-edit").attr("data-toggle", "modal");
@@ -1064,6 +1086,9 @@ function salvar_alteracoes(id, op) {
                     z_index: 999999
                 });
                 $('#fecharGrupo').trigger('click');
+                setTimeout(function () {
+                    location.reload()
+                }, 250);
             },
             error: function (error) {
                 console.log(error);
@@ -1072,9 +1097,39 @@ function salvar_alteracoes(id, op) {
         console.log("Eu estou salvando alunos");
         console.log("Id da sala que vai salvar--->" + id);
         console.log(alunos);
-        setTimeout(function () {
-            location.reload()
-        }, 250);
+    } else if (op == 3){
+        $.ajax({
+            url: '/admin/remove-aluno',
+            type: 'POST',
+            data: {
+                aluno: remove,
+                sala: id
+            },
+            dataType: 'JSON',
+
+            success: function (data) {
+                console.log(data);
+                var type = "success";
+                $.notify({
+                    message: "Alterações realizadas com sucesso"
+                }, {
+                    type: type,
+                    timer: 4000,
+                    placement: {
+                        from: 'top',
+                        align: 'right'
+                    },
+                    z_index: 999999
+                });
+                $('#fecharGrupo').trigger('click');
+                setTimeout(function () {
+                    location.reload()
+                }, 250);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
     }
 
 }

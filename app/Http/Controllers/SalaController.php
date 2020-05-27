@@ -155,8 +155,6 @@ class SalaController extends Controller
         $objProjetoDiretorio = File::makeDirectory($strCaminho);
       }
     } else {
-      var_dump($request->input('enable1'));
-      var_dump($request->input('public1'));
       $sala = Sala::find($request->sala_id);
       $sala->name = $request->input('nome');
       $sala->duracao = 0;
@@ -493,10 +491,10 @@ class SalaController extends Controller
 
 
       if (count($salas_publicas) > 0) {
+          $jsn = array();
 
 
         foreach ($salas_publicas as $salas) {
-            $jsn = array();
 
 
 
@@ -589,18 +587,6 @@ class SalaController extends Controller
 
 
             $total = $i2 - $i;
-
-
-
-
-            $jsn[] = array(
-
-              'id' => $salas->id,
-              'name' => $salas->name,
-              'Pergunta' => $total,
-              'Reforco' => $i,
-              'Progress' => $progress
-            );
 
               $salaData = array(
 
@@ -920,4 +906,20 @@ class SalaController extends Controller
 
     return json_encode($vinculos);
   }
+
+    public function remove_user(Request $request)
+    {
+        $id_aluno = $request['aluno'];
+        $id_sala = $request['sala'];
+
+        if (sizeof($id_aluno) > 0) {
+            $tamanho = count($id_aluno);
+
+            for ($cont = 0; $cont < $tamanho; $cont++) {
+
+                DB::table('sala_user')->where(['user_id' => intval($id_aluno[$cont]), 'sala_id' => $id_sala])->delete();
+            }
+        }
+        return response()->json(['success' => 'Sucesso']);
+    }
 }

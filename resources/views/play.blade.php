@@ -119,7 +119,6 @@
     <div class="row content logins">
         <div class="col-md-4 offset-md-2 col-sm-12" style="margin-bottom: 16px">
             <div class="card border-info">
-                <div class="card-header">Aluno</div>
                 <div class="card-body text-info">
                     <i class="fas fa-gamepad fa-10x" style="width: 80%; color: #636b6f; margin: 8px"></i>
                     <div class="card-text links">
@@ -132,7 +131,6 @@
 
         <div class="col-md-4 col-sm-12" style="margin-bottom: 16px">
             <div class="card border-info">
-                <div class="card-header">Professor</div>
                 <div class="card-body text-info">
                     <i class="fab fa-android fa-10x" style="width: 80%; color: #636b6f; margin: 8px"></i>
                     <div class="card-text links">

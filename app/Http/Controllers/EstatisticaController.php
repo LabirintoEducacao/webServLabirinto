@@ -205,7 +205,7 @@ class EstatisticaController extends Controller
 
         $start = DB::table('data')->where('maze_id', $resposta['maze_id'])->where('user_id', $resposta['user_id'])->select('event', 'start')->orderBy('start', 'desc')->first();
 
-        
+
         if($start){
             $jogadas = $start->start;
             if($start->event == "maze_end"){
@@ -542,6 +542,8 @@ class EstatisticaController extends Controller
                             $rooms[$stop->question_id]['wrongs'] += 1;
                             $rooms[$stop->question_id]['status'] = 2;
                         }
+                        $correct_count = $stop->correct_count;
+                        $wrong_count = $stop->wrong_count;
                     }
                     if($stop->event == "question_start" || $stop->event == "maze_continue"){
                         $rooms[$stop->question_id]['enterTime'] = strtotime($stop->created_at);
@@ -551,8 +553,6 @@ class EstatisticaController extends Controller
                         $rooms[$stop->question_id]['timeInside'] += (strtotime($stop->created_at) - $rooms[$stop->question_id]['enterTime']);
                     }
                     if($stop->event == "question_end"){
-                        $correct_count = $stop->correct_count;
-                        $wrong_count = $stop->wrong_count;
                         if($stop->correct == 1){
                             $lastquestion = $stop->question_id;
                         }
@@ -569,6 +569,7 @@ class EstatisticaController extends Controller
                 if($indexperg == 0){
                     $startquestion = $perg->id;
                 }
+                $indexperg++;
 
                 if(isset($rooms[$perg->id])){
                     $room = $rooms[$perg->id];

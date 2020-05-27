@@ -56,6 +56,7 @@
               </tbody>
             </table>
           </div>
+            <button id="save_remove" class="btn btn-success" style="float:right; display: none " onclick="check(0,5)">Salvar alterações</button>
         </div>
       </div>
     </div>
