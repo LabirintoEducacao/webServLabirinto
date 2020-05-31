@@ -52,7 +52,7 @@
         }
 
         .title {
-            font-size: 84px;
+            font-size: 56px;
         }
 
         .links > a {
@@ -94,20 +94,6 @@
         <div class="links col-md-3">
             <a href="{{ url('/') }}">Labirinto</a>
         </div>
-        <div class="col-md-5"></div>
-        @if (Route::has('login'))
-            <div class="links mobile-hide col-md-4" style="text-align: right">
-                @auth
-                    <a href="{{ url('/home') }}">Home</a>
-                @else
-                    <a href="{{ route('login') }}">Login</a>
-
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}">Cadastrar</a>
-                    @endif
-                @endauth
-            </div>
-        @endif
     </div>
 
     <div class="row">
@@ -116,8 +102,8 @@
         </div>
     </div>
 
-    <div class="row content logins">
-        <div class="col-md-4 offset-md-2 col-sm-12" style="margin-bottom: 16px">
+    <div class="row content justify-content-center logins">
+        <div class="col-md-3 col-sm-12" style="margin-bottom: 16px">
             <div class="card border-info">
                 <div class="card-body text-info">
                     <i class="fas fa-gamepad fa-10x" style="width: 80%; color: #636b6f; margin: 8px"></i>
@@ -129,7 +115,7 @@
             </div>
         </div>
 
-        <div class="col-md-4 col-sm-12" style="margin-bottom: 16px">
+        <div class="col-md-3 col-sm-12" style="margin-bottom: 16px">
             <div class="card border-info">
                 <div class="card-body text-info">
                     <i class="fab fa-android fa-10x" style="width: 80%; color: #636b6f; margin: 8px"></i>

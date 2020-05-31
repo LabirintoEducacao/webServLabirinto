@@ -307,43 +307,6 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                        @if (\Request::is('usuario/login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('userLogin') }}">{{ __('Login') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('userRegister') }}">{{ __('Cadastrar') }}</a>
-                        </li>
-                        @elseif (\Request::is('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Cadastrar') }}</a>
-                        </li>
-                        @elseif (\Request::is('usuario/register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('userLogin') }}">{{ __('Login') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('userRegister') }}">{{ __('Cadastrar') }}</a>
-                        </li>
-                        @elseif (\Request::is('virtual'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('userLogin') }}">{{ __('Login') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('userRegister') }}">{{ __('Cadastrar') }}</a>
-                        </li>
-                        @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Cadastrar') }}</a>
-                        </li>
-
-                        @endif
                         @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

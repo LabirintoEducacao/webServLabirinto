@@ -465,8 +465,6 @@ class SalaController extends Controller
   {
 
 
-
-
     if (isset($_REQUEST['type']) && $_REQUEST['type'] != null) {
 
       $tipo = (int) $_REQUEST['type'];
@@ -488,16 +486,11 @@ class SalaController extends Controller
         ->where('public', '=', 1)->select('id', 'name')->get();
 
 
-
-
       if (count($salas_publicas) > 0) {
           $jsn = array();
 
 
         foreach ($salas_publicas as $salas) {
-
-
-
 
           //------------------------------------Porcentagem---------------------------//
 
@@ -510,17 +503,18 @@ class SalaController extends Controller
 
           $tperg = Pergunta::select('id', 'ordem')->where('sala_id', $maze)->orderBy('ordem')->get();
 
-          $start =  Data::select('start')->where('user_id', $id)->where('maze_id', $maze)->get();
 
-          foreach ($start as $value) {
+          $start =  Data::select('start')->where('user_id',$id)->where('maze_id',$maze)->latest('created_at')->first();
 
-            $jogada = $value->start;
-          }
+            $save = [];
 
+            if($start){
 
-          $save =  Data::select('event', 'question_id', 'created_at')->where('user_id', $id)->where('maze_id', $maze)->where('start', $jogada)->get();
+                $jogada = $start->start;
 
+                $save =  Data::select('event', 'question_id')->where('user_id', $id)->where('maze_id', $maze)->where('start', $jogada)->where('event', 'question_end')->get();
 
+            }
 
           if (count($save) > 0) {
 
@@ -528,34 +522,19 @@ class SalaController extends Controller
 
               if ($stop->event == "question_end") {
 
-                $progress = $stop->question_id;
+                $progress++;
               }
             }
 
             $total = count($tperg);
-
-            foreach ($tperg as $value) {
-
-              if ($value->id == $progress) {
-
-                $progress = $indexperg;
-              }
-
-              $indexperg++;
-            }
 
             $progress = ($progress * 100) / $total;
           } else {
 
             $progress = 0;
           }
-
-
-
+          
           //---------------------------Termino Porcentagem--------------------------------//
-
-
-
 
           $perguntasref = DB::table('perguntas')
             ->join('perg_ref', 'perguntas.id', '=', 'perg_ref.perg_id')
@@ -565,31 +544,14 @@ class SalaController extends Controller
             ->where('sala_id', '=', $salas->id)->get();
 
 
-
           if (count($perguntas) > 0) {
 
-            $i2 = 0;
-            $i = 0;
-
-
-
-            foreach ($perguntasref as $perguntasref) {
-
-              $i++;
-            }
-
-            foreach ($perguntas as $perguntas) {
-
-              $i2++;
-            }
-
-
-
+            $i2 = count($perguntas);
+            $i = count($perguntasref);
 
             $total = $i2 - $i;
 
               $salaData = array(
-
                   'id' => $salas->id,
                   'name' => $salas->name,
                   'Pergunta' => $total,
@@ -626,11 +588,6 @@ class SalaController extends Controller
       }
     } elseif ($tipo == 1 && isset($_REQUEST['id'])) {
 
-
-
-
-
-
       $json = $_REQUEST['id'];
 
       $user = DB::table('users')->where('id', '=', $json)->get();
@@ -645,12 +602,9 @@ class SalaController extends Controller
 
           foreach ($salas_user as $sala_user) {
 
-
-
-
             //------------------------------------Contagem ---------------------------//
 
-            $maze = $sala_user->id;
+            $maze = $sala_user->sala_id;
             $id =   $_REQUEST['id'];
 
             $indexperg = 1;
@@ -660,41 +614,31 @@ class SalaController extends Controller
 
             $tperg = Pergunta::select('id', 'ordem')->where('sala_id', $maze)->orderBy('ordem')->get();
 
-            $start =  Data::select('start')->where('user_id', $id)->where('maze_id', $maze)->get();
+            $start =  Data::select('start')->where('user_id',$id)->where('maze_id',$maze)->latest('created_at')->first();
 
-            foreach ($start as $value) {
+            $save = [];
 
-              $jogada = $value->start;
+            if($start){
+
+                $jogada = $start->start;
+
+                $save =  Data::select('event', 'question_id')->where('user_id', $id)->where('maze_id', $maze)->where('start', $jogada)->where('event', 'question_end')->get();
+
             }
-
-
-            $save =  Data::select('event', 'question_id')->where('user_id', $id)->where('maze_id', $maze)->where('start', $jogada)->get();
-
-
 
             if (count($save) > 0) {
 
-              foreach ($save as $stop) {
+                foreach ($save as $stop) {
 
-                if ($stop->event == "question_end") {
+                    if ($stop->event == "question_end") {
 
-                  $progress = $stop->question_id;
-                }
-              }
-
-              $total = count($tperg);
-
-              foreach ($tperg as $value) {
-
-                if ($value->id == $progress) {
-
-                  $progress = $indexperg;
+                        $progress++;
+                    }
                 }
 
-                $indexperg++;
-              }
+                $total = count($tperg);
 
-              $progress = ($progress * 100) / $total;
+                $progress = ($progress * 100) / $total;
             } else {
 
               $progress = 0;
@@ -716,24 +660,10 @@ class SalaController extends Controller
 
             if (count($perguntas) > 0) {
 
-              $i2 = 0;
-              $i = 0;
+                $i2 = count($perguntas);
+                $i = count($perguntasref);
 
-
-
-              foreach ($perguntasref as $perguntasref) {
-
-                $i++;
-              }
-
-              foreach ($perguntas as $perguntas) {
-
-                $i2++;
-              }
-
-
-
-              $total = $i2 - $i;
+                $total = $i2 - $i;
 
 
               $sala = DB::table('salas')

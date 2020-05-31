@@ -48,7 +48,7 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 56px;
             }
 
             .links > a {
@@ -71,7 +71,7 @@
                 }
                 .title{
 
-                    display: none;
+                    font-size: 40px;
                 }
                 .mobile-hide{
 
@@ -84,64 +84,109 @@
     <body>
 
     <div class="container position-ref full-height">
-        <div class="row" style="margin-top: 16px; margin-bottom: 16px">
-            <div class="col-md-8"></div>
-            @if (Route::has('login'))
-                <div class="links mobile-hide col-md-4" style="text-align: right">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Cadastrar</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-        </div>
 
         <div class="row">
-            <div class="col-md-12 title m-b-md justify-content-center" style="margin-top: 7%; text-align: center">
+            <div class="col-md-12 title m-b-md justify-content-center" style="margin-top: 8%; text-align: center">
                 Labirinto da Educação
             </div>
         </div>
 
-        <div class="row content logins">
-            <div class="col-md-4 col-sm-12" style="margin-bottom: 16px">
+        <div class="row justify-content-center">
+            <div class="col-md-9" style="margin-bottom: 16px; margin-top: 16px">
+                <div class="card" style="padding-top: 16px; padding-bottom: 16px">
+
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
+
+                            <div class="form-group row">
+                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Senha') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                                    @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-6 offset-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                        <label class="form-check-label" for="remember">
+                                            {{ __('Lembrar de mim') }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-0">
+                                <div class="col-md-8 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Login') }}
+                                    </button>
+
+                                    @if (Route::has('password.request'))
+                                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                                            {{ __('Esqueceu sua senha?') }}
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row content justify-content-center">
+            <div class="col-md-3 col-sm-12" style="margin-bottom: 16px">
                 <div class="card border-info">
-                    <div class="card-header">Aluno</div>
                     <div class="card-body text-info">
                         <i class="fas fa-user-graduate fa-10x" style="width: 80%; color: #636b6f; margin: 8px"></i>
                         <div class="card-text links">
-                            <a href="{{ url('usuario/login') }}">Login</a><br>
                             <a href="{{ url('usuario/register') }}">Cadastre-se</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4 col-sm-12" style="margin-bottom: 16px">
+            <div class="col-md-3 col-sm-12" style="margin-bottom: 16px">
                 <div class="card border-info">
-                    <div class="card-header">Professor</div>
                     <div class="card-body text-info">
                         <i class="fas fa-chalkboard-teacher fa-10x" style="width: 80%; color: #636b6f; margin: 8px"></i>
                         <div class="card-text links">
-                            <a href="{{ url('login') }}">Login</a><br>
                             <a href="{{ url('register') }}">Cadastre-se</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4 col-sm-12" style="margin-bottom: 16px">
+            <div class="col-md-3 col-sm-12" style="margin-bottom: 16px">
                 <div class="card border-info">
-                    <div class="card-header">Jogos Públicos</div>
                     <div class="card-body text-info">
                         <i class="fas fa-gamepad fa-10x" style="width: 80%; color: #636b6f; margin: 8px"></i>
                         <div class="card-text links">
-                            <a href="{{ url('play') }}">Jogar</a><br/>
-                            <br/>
+                            <a href="{{ url('play') }}">Jogar</a>
                         </div>
                     </div>
                 </div>
