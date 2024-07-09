@@ -1,75 +1,128 @@
-Planning a cada duas semanas sexta 12h45: 18/10, 01/11, ...
+
+<h1><p align="center">Instalação do Servidor Laravel <b>5.8</b></p></h1>
+<p align="center">Sugestão de instalação no Ubuntu 20.04 LTS
+<img src="https://dhx0ny5rxatah.cloudfront.net/lightsail-assets-Prod/ubuntu-d2a08053183d05a1629719331b152a44.png" width=40 height=40></p>
 
 
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## Apache e Php7.4
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+```
+sudo apt-get update
+```
+```
+sudo apt -y install software-properties-common
+```
+```
+sudo add-apt-repository ppa:ondrej/php
+```
+```
+sudo apt-get update
+```
+```
+apt install apache2 -y
+```
+```
+sudo apt -y install php7.4
+```
+```
+sudo apt-get install -y php7.4-cli php7.4-json php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath
+```
+```
+sudo apt-get install -y php7.4-xmlrpc php7.4-soap php7.4-gd php7.4-xml php7.4-cli php7.4-zip 
+```
+```
+sudo apt-get install -y php7.4-intl php7.4-json php7.4-mbstring php7.4-mysql php7.4-opcache php7.4-readline php7.4-xml php7.4-xsl php7.4-zip php7.4-bz2 libapache2-mod-php7.4
 
-## About Laravel
+```
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Mariadb / mysql
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```
+apt install mariadb-server mariadb-client -y
+```
+```
+sudo mysql_secure_installation 
+```
 
-## Learning Laravel
+## Composer
+```
+curl -sS https://getcomposer.org/installer | php 
+```
+```
+sudo mv composer.phar /usr/local/bin/composer 
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Laravel 5.8
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1400 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
+cd /var/www/html 
+```
+```
+sudo composer create-project --prefer-dist laravel/laravel blog "5.8.*"
+```
+```
+sudo nano /etc/apache2/sites-available/laravel.conf 
+```
+```
+<VirtualHost *:80>
+    ServerName laravel.example.com
+    ServerAdmin webmaster@example.com
 
-## Laravel Sponsors
+    DocumentRoot /var/www/html/labeduc/public
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+    <Directory /var/www/html/labeduc>
+        AllowOverride All
+    </Directory>
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+```
+sudo a2ensite laravel.conf
+```
+```
+sudo a2dissite 000-default.conf 
+```
+```
+sudo a2enmod rewrite 
+```
+```
+sudo systemctl restart apache2 
+```
+```
+cd /var/www/html/labeduc>
+```
+```
+cp .env.example .env
+```
+```
+php artisan key:generate
+```
+```
+sudo chown -R www-data:www-data /var/www/html/labeduc/
+```
 
-## Contributing
+## Clone repositório
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+git clone https://github.com/LabirintoEducacao/webServLabirinto.git
+```
+```
+mv webServLabirinto labeduc
+```
+dentro da pasta labeduc rodar composer
+```
+composer install
+```
+```
+composer update
+```
+```
+php artisan migrate:fresh --seed
+```
 
 ## License
 
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
