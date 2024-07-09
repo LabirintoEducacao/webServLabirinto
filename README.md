@@ -119,6 +119,7 @@ composer install
 ```
 composer update
 ```
+Criar banco de dados "labirinto2" depois executar o comando abaixo
 ```
 php artisan migrate:fresh --seed
 ```
